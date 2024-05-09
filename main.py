@@ -106,10 +106,12 @@ class MainWindow(QMainWindow):
         if dosya_adi:
             sonuc = model.predict(source = dosya_adi, save = True)
             dosya_adlari = [os.path.basename(item.path) for item in sonuc]
-            print(dosya_adlari)
-            img = QImage(f"run/detect/predict/{dosya_adlari[0]}")
+            dosya = dosya_adlari[0]
+            dosya_path = f"C:/Users/alpnn/Masaüstü/MyInterface/runs/detect/predict/{dosya}" # Dosya yolu çalıştırılan bilgisayara göre değişir
+            img = QImage(dosya_path)
             self.ui.KameraGoruntu.setAlignment(Qt.AlignCenter)
             self.ui.KameraGoruntu.setPixmap(QPixmap.fromImage(img))
+            self.ui.KameraGoruntu.setScaledContents(True)
             self.mesajlar_widget.addItem("Görsel seçildi")
         else:
             self.mesajlar_widget.addItem("Dosya okunamadı.")
