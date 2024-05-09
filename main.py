@@ -118,8 +118,9 @@ class MainWindow(QMainWindow):
 
     def video_sec(self):
         dosya_adi, _ = QFileDialog.getOpenFileName(self, "Video Seç", "", "Videos (*.mp4)")
-
+        model = YOLO("yolov8s.pt")
         if dosya_adi:
+            sonuc = model.predict(source = dosya_adi, show = True)
             self.mesajlar_widget.addItem("Video seçildi")
         else:
             self.mesajlar_widget.addItem("Dosya okunamadı.")
