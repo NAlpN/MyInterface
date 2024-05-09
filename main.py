@@ -48,7 +48,7 @@ class MainWindow(QMainWindow):
         self.camera = cv2.VideoCapture(0)
 
         if not self.camera.isOpened():
-            QtWidgets.QMessageBox.critical(self, "Hata", "Kamera açılamadı. Lütfen kameranın bağlı olduğundan emin olun.")
+            self.mesajlar_widget.addItem("Kamera açılamadı. Lütfen kameranın bağlı olduğundan emin olun.")
             return
 
         self.ui.KameraGoruntu.setAlignment(Qt.AlignCenter)
@@ -84,6 +84,7 @@ class MainWindow(QMainWindow):
             self.ui.KameraGoruntu.setPixmap(QPixmap.fromImage(p))
     
     def fotograf_cek(self):
+        # Fotoğraf kaydederken seçeceğiniz dosya isminin sonuna uzantısını yazmanız gerekmektedir.
         if self.camera is not None:
             dosya_adi, _ = QFileDialog.getSaveFileName(self, "Fotoğrafı Kaydet", "", "PNG (*.png);;JPEG (*.jpg *.jpeg)")
 
@@ -96,7 +97,7 @@ class MainWindow(QMainWindow):
                     cv2.imwrite(dosya_adi, frame)
                     self.mesajlar_widget.addItem("Fotoğraf kaydedildi.")
                 else:
-                    self.mesajlar_widget.addItem("Fotoğraf keydidilemedi.")
+                    self.mesajlar_widget.addItem("Fotoğraf keydedilemedi.")
             else:
                 self.mesajlar_widget.addItem("Dosya adı belirtilmedi veya geçersiz bir dosya adı belirtildi.")
     
